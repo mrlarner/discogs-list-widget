@@ -1,0 +1,43 @@
+{
+  "name": "discogs-list-widget",
+  "version": "1.0.0",
+  "description": "A Widget for embedding Discogs Lists on your site",
+  "main": "server.js",
+  "scripts": {
+    "start": "coffee server.coffee",
+    "start:dev": "parallelshell 'supervisor server.coffee' 'npm run watch:js' 'npm run watch:css'",
+    "todo": "ack --ignore-dir=node_modules --ignore-dir=public --ignore-file=is:package.json --ignore-file=is:npm-debug.log TODO",
+    "postinstall": "npm run build",
+    "test": "testem",
+    "build": "npm run build:js",
+    "build:js": "browserify -t coffeeify -t sassify -t stringify coffee/widget.coffee -d -p [minifyify --map bundle.map.json --output bundle.map.json --uglify ] > public/javascripts/widget.js",
+    "build:css": "sassc sass/lists.sass > public/stylesheets/lists.css",
+    "watch:js": "watch 'npm run build:js' coffee",
+    "watch:css": "watch 'npm run build:css' sass"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "chai": "^2.3.0",
+    "coffeeify": "^1.1.0",
+    "domready": "^1.0.8",
+    "minifyify": "^7.0.3",
+    "mocha": "^2.2.4",
+    "parallelshell": "^2.0.0",
+    "sassify": "^0.9.1",
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0",
+    "stringify": "^3.1.0",
+    "supervisor": "latest",
+    "testem": "^0.8.3",
+    "uglify": "^0.1.5",
+    "underscore": "^1.8.3",
+    "watch": "^0.16.0"
+  },
+  "dependencies": {
+    "coffee-script": "^1.9.2",
+    "express": "latest",
+    "promise": "^7.0.3"
+  }
+}
