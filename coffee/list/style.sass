@@ -1,0 +1,56 @@
+.list
+  box-sizing: border-box
+  padding: 2rem
+  border: 1px solid black
+  position: relative
+  margin-bottom: 10px
+
+@-webkit-keyframes spin
+    0%
+      -webkit-transform: rotate(0deg)
+    100%
+      -webkit-transform: rotate(12000deg)
+
+.list-loading
+  margin: 0 auto
+  width: 50%
+.list-loading-spinner
+  width: 50px
+  height: 50px
+  margin: 0 auto 10px
+  background: transparent url(//localhost:3000/images/loading.png) no-repeat center center
+  background-size: 100% 100%
+  text-indent: -999em
+  overflow: hidden
+  -webkit-animation: spin 1s infinite linear;
+
+.list-loading-label
+  text-align: center
+
+.list-title
+  margin-top: 0
+
+.list-author-profile-link
+  display: inline-block
+  text-decoration: none
+  color: inherit
+  vertical-align: middle
+  margin-bottom: 10px
+
+.list-author-thumbnail
+  margin-left: 5px
+  img
+    width: 28px
+    height: auto
+    border: 1px solid black
+    margin-right: 5px
+    vertical-align: middle
+
+.list-description
+  margin: 10px 0
+
+.list-item-image
+  max-width: 100%
+  height: auto
+
+

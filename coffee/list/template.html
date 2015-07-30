@@ -1,0 +1,34 @@
+<div id="discogs-list-<%- id %>" class="list list-<%- id %> <%- status %>">
+    <style type="text/css"><%- style %></style>
+    <% if( status === 'loaded' ) { %>
+        <h1 class="list-title"><%- list.name %></h1>
+        <a href="<%- list.author.url %>" class="list-author-profile-link">
+            By
+            <span class="list-author-thumbnail">
+                <img src="<%- list.author.avatar_src %>">
+            <span>
+            <span class="list-author-username">
+                <%- list.author.username %>
+            </span>
+        </a>
+        <div class="list-description">
+            <%= list.description %>
+        </div>
+        <ol class="list-items" <%- options.reverse ? 'reversed' : '' %>>
+            <% _.each(list.items, function(item) { %>
+            <li class="list-item">
+                <h2 class="list-item-title">
+                    <%- item.title %>
+                </h2>
+                <!-- image -->
+                <img class="list-item-image" src="<%- item.image_src %>">
+                <%= item.comment %>
+            </li>
+            <% }); %>
+    <% } else { %>
+
+        <div class="list-loading">
+            <div class="list-loading-spinner"></div>
+            <div class="list-loading-label">Cuing, please wait!</div>
+    <% } %>
+</div>
