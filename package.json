@@ -10,7 +10,7 @@
     "postinstall": "npm run build",
     "test": "testem",
     "build": "npm run build:js",
-    "build:js": "browserify -t coffeeify -t sassify -t stringify coffee/widget.coffee -d -p [minifyify --map bundle.map.json --output bundle.map.json --uglify ] > public/javascripts/widget.js",
+    "build:js": "browserify -t coffeeify -t sassify -t stringify coffee/embed.coffee -d -p [minifyify --map public/embed.js.map --output public/embed.js.map ] > public/javascripts/embed.js",
     "build:css": "sassc sass/lists.sass > public/stylesheets/lists.css",
     "watch:js": "watch 'npm run build:js' coffee",
     "watch:css": "watch 'npm run build:css' sass"
