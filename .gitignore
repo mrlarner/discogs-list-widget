@@ -1,0 +1,6 @@
+public/stylesheets
+public/javascripts
+public/vendor
+public/test
+node_modules
+npm-debug.log
