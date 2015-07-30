@@ -1,5 +1,4 @@
 express = require 'express'
-Discogs = require('disconnect').Client
 
 lists = express.Router()
 

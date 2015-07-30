@@ -1,4 +1,3 @@
-util = require './utils.coffee'
 ListWidget = require './list/widget.coffee'
 
 attributeNamespace = 'data-discogs-widget'

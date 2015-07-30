@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "browser-request": "^0.3.3",
     "browserify": "^11.0.1",
     "chai": "^2.3.0",
     "coffeeify": "^1.1.0",
@@ -37,6 +38,7 @@
   },
   "dependencies": {
     "coffee-script": "^1.9.2",
+    "cors": "^2.7.1",
     "express": "latest",
     "promise": "^7.0.3"
   }
