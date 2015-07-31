@@ -30,7 +30,15 @@
     <% } else { %>
 
         <div class="list-loading">
-            <div class="list-loading-spinner"></div>
+            <div class="list-loading-spinner">
+                <% if( status === 'error'){ %>
+                <span class="exclaim">!</span>
+                <% } %>
+            </div>
+            <% if( status === 'error') { %>
+            <div class="list-loading-label">Oops, something bad happened!</div>
+            <% } else { %>
             <div class="list-loading-label">Cuing, please wait!</div>
+            <% } %>
     <% } %>
 </div>

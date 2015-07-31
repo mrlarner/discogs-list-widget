@@ -34,11 +34,14 @@ class Widget
                         resolve JSON.parse body
                     catch error
                         reject error
-                else
-                    reject body
+                else reject body
 
         success = (data) => @loaded data; @render()
-        fail = (error) => @failed error
+        fail = (error) => 
+            try
+                @failed error
+            catch
+                @render()
 
         promise.then success, fail
 

@@ -1,7 +1,7 @@
 .list
   box-sizing: border-box
   padding: 2rem
-  border: 1px solid black
+  border: 1px solid rgba(black, 0.5)
   position: relative
   margin-bottom: 10px
 
@@ -11,9 +11,16 @@
     100%
       -webkit-transform: rotate(12000deg)
 
+@-webkit-keyframes appear
+  0%
+    opacity: 0
+  95%, 100%
+    opacity: 1
+
 .list-loading
   margin: 0 auto
   width: 50%
+
 .list-loading-spinner
   width: 50px
   height: 50px
@@ -22,7 +29,25 @@
   background-size: 100% 100%
   text-indent: -999em
   overflow: hidden
-  -webkit-animation: spin 1s infinite linear;
+  -webkit-animation: spin 1s infinite linear
+
+.error .list-loading-spinner
+  -webkit-animation: spin 0.5s ease-in-out
+  position: relative
+
+.error .list-loading-spinner .exclaim
+    display: block
+    position: absolute
+    width: 100%
+    text-indent: 0
+    text-align: center
+    text-shadow: 0 0 1px rgba(#000, 0.5)
+    font-size: 50px
+    font-weight: bold
+    line-height: 50px
+    color: #fff
+    opacity: 0
+    -webkit-animation: appear 0.25s 1s ease-in-out forwards
 
 .list-loading-label
   text-align: center
