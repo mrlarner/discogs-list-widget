@@ -8,5 +8,5 @@ app.use cors()
 app.use express.static 'public'
 app.use '/lists', require './routes/lists'
 
-server = app.listen 3000, ->
+server = app.listen process.env.port or 3000, ->
     console.log "Listening on port:", server.address().port
