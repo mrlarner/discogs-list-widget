@@ -2,6 +2,7 @@ request = require 'request-promise'
 promise = require 'promise'
 
 base_uri = "http://api.matthax-list-api-enpoints.spinner.10.10.10.57.xip.io"
+user_agent = "ListWidgetAPI/1.0"
 
 extend = (object, properties) ->
   for key, val of properties
@@ -12,6 +13,8 @@ extend = (object, properties) ->
 Resource = (options) ->
     request extend options, {
         baseUrl: base_uri
+        headers:
+            "User-Agent": user_agent
     }
 
 
