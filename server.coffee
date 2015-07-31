@@ -1,9 +1,11 @@
 # TODO make an index template so public is more disposable?
-process.env.PWD = process.cwd()
 
+path = require 'path'
 express  = require 'express'
 cors = require 'cors'
 app = express()
+
+process.env.PWD = process.cwd()
 
 app.use cors()
 app.use express.static path.join(process.env.PWD, 'public')
