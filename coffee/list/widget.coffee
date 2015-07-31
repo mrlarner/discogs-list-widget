@@ -38,7 +38,7 @@ class List
         @items.reverse() if @options.reverse
 
 class ListWidget extends Widget
-    endpoint: -> "http://localhost:3000/lists/#{@id}"
+    endpoint: -> "//matthax-discogs-list-widget.herokuapp.com/lists/#{@id}"
     template: -> template
     style: style
     loaded: (data) ->
