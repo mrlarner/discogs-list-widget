@@ -10,6 +10,7 @@ class ListItem
             @name
             @comment
             @thumbnail
+            @uri
         } = item
 
 
@@ -18,7 +19,7 @@ class ListAuthor
         {
             @username
             @avatar
-            @url
+            @uri
         } = author
 
 

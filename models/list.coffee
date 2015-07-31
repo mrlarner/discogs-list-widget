@@ -15,14 +15,21 @@ Resource = (options) ->
     }
 
 
+cache = {}
+
+
 class List
     @get: (id) ->
+        return Promise.resolve cache[id] if id of cache
+
         new Promise (resolve, reject) ->
             list = Resource {
                 uri: "/lists/#{id}"
             }
             list.then (data) ->
-                resolve JSON.parse data
+                cache[id] = JSON.parse data
+                cache[id].cached = new Date
+                resolve cache[id]
             list.catch ->
                 console.error arguments
                 reject { error: "No List" }

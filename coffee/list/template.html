@@ -2,7 +2,7 @@
     <style type="text/css"><%- style %></style>
     <% if( status === 'loaded' ) { %>
         <h1 class="list-title"><%- list.name %></h1>
-        <a href="<%- list.author.url %>" class="list-author-profile-link">
+        <a href="<%- list.author.uri %>" class="list-author-profile-link">
             By
             <span class="list-author-thumbnail">
                 <img src="<%- list.author.avatar %>">
@@ -17,11 +17,13 @@
         <ol class="list-items" <%- options.reverse ? 'reversed' : '' %>>
             <% _.each(list.items, function(item) { %>
             <li class="list-item">
-                <h2 class="list-item-title">
-                    <%- item.name %>
-                </h2>
-                <!-- image -->
-                <img class="list-item-image" src="<%- item.thumbnail %>">
+                <a href="<%- item.uri %>">
+                    <h2 class="list-item-title">
+                        <%- item.name %>
+                    </h2>
+                    <!-- image -->
+                    <img class="list-item-image" src="<%- item.thumbnail %>">
+                </a>
                 <%= item.comment %>
             </li>
             <% }); %>

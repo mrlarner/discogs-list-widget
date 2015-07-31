@@ -5,16 +5,21 @@ List = require '../models/list'
 
 lists = express.Router()
 
+
 log = (req, res, next) ->
-    console.log "\n\nLists:", req.route,  "---------------------\n", new Date
+    console.log "\n\nLists:", "---------------------\n", new Date
     next()
 
-lists.get /\/(\d+)$/, (req, res) ->
-    console.log "Get List", 1
-    List.get(1).then (list) ->
+
+lists.use(log)
+
+
+lists.get '/:id', (req, res) ->
+    console.log "Get List", req.params.id
+    id = req.params.id
+    List.get(id).then (list) ->
         console.log "Got List", list
         res.json list
 
-lists.use log
 
 module.exports = lists
