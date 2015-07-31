@@ -1,7 +1,7 @@
 request = require 'request-promise'
 promise = require 'promise'
 
-base_uri = "http://api.matt1.local:5000"
+base_uri = "http://api.matthax-list-api-enpoints.spinner.10.10.10.57.xip.io"
 
 extend = (object, properties) ->
   for key, val of properties
