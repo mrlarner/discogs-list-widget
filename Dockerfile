@@ -9,6 +9,8 @@ RUN mkdir -p /root/.ssh
 RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 RUN git clone https://github.com/mrlarner/discogs-list-widget.git /var/www/discogs-list-widget
 
+RUN npm install
+
 ADD bootstrap.sh /root/bootstrap.sh
 CMD ["/root/bootstrap.sh"]
 

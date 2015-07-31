@@ -2,6 +2,8 @@
 
 REF=origin/${REF:-master}
 
+echo "Bootstrappin"
+
 git fetch origin
 git reset --hard $REF
 
