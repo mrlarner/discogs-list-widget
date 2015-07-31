@@ -5,7 +5,7 @@
         <a href="<%- list.author.url %>" class="list-author-profile-link">
             By
             <span class="list-author-thumbnail">
-                <img src="<%- list.author.avatar_src %>">
+                <img src="<%- list.author.avatar %>">
             <span>
             <span class="list-author-username">
                 <%- list.author.username %>
@@ -18,10 +18,10 @@
             <% _.each(list.items, function(item) { %>
             <li class="list-item">
                 <h2 class="list-item-title">
-                    <%- item.title %>
+                    <%- item.name %>
                 </h2>
                 <!-- image -->
-                <img class="list-item-image" src="<%- item.image_src %>">
+                <img class="list-item-image" src="<%- item.thumbnail %>">
                 <%= item.comment %>
             </li>
             <% }); %>

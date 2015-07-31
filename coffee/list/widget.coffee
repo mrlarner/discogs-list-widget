@@ -3,27 +3,13 @@ Widget = require '../widget.coffee'
 template = require './template.html'
 style = require './style.sass'
 
-# Widget Controller instantiates and renders
-
-# Render should do an api get request promise
-
-# Wrapper element should be inserted after script in render
-
-# Treat widget state like React
-
-# When something happense, re-render :\
-
-# promise = fetch
-# insert wrapper to dom
-# promise.then re-render template after state change
-
 
 class ListItem
     constructor: (item) ->
         {
-            @title
+            @name
             @comment
-            @image_src
+            @thumbnail
         } = item
 
 
@@ -31,7 +17,7 @@ class ListAuthor
     constructor: (author) ->
         {
             @username
-            @avatar_src
+            @avatar
             @url
         } = author
 
@@ -56,7 +42,7 @@ class ListWidget extends Widget
     style: style
     loaded: (data) ->
         super(data)
-        @list = new List data.list, @options
+        @list = new List data, @options
 
 
 module.exports = ListWidget
