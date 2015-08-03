@@ -1,5 +1,5 @@
 _ = require 'underscore'
-Widget = require '../widget.coffee'
+{ StaticWidget, Widget } = require '../widget.coffee'
 template = require './template.html'
 style = require './style.sass'
 
@@ -45,5 +45,11 @@ class ListWidget extends Widget
         super(data)
         @list = new List data, @options
 
+class StaticListWidget extends StaticWidget
+    template: -> template
+    style: style
+    loaded: (data) ->
+        super(data)
+        @list = new List data, @options
 
-module.exports = ListWidget
+module.exports = { ListWidget, StaticListWidget }

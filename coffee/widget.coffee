@@ -18,36 +18,20 @@ class WidgetException extends Error
         @name = "WidgetException"
     toString: -> "#{@name}: #{@message}"
 
-class Widget
-    constructor: (@element, @id) ->
+class BaseWidget
+    constructor: (@element, @id, data = {}) ->
+        console.debug "BaseWidget parsing Options", @
         @options = @parse_options @element.attributes
 
         # Initial render
         @render()
 
-        # Fetch data from @endpoint
-
-        promise = new Promise (resolve, reject) =>
-            request @endpoint(), (error, response, body) ->
-                if response.status < 300
-                    try
-                        resolve JSON.parse body
-                    catch error
-                        reject error
-                else reject body
-
-        success = (data) => @loaded data; @render()
-        fail = (error) => 
-            try
-                @failed error
-            catch
-                @render()
-
-        promise.then success, fail
+        if not _.isEmpty data
+            console.debug "Data passed"
+            @loaded data
+            @render()
 
     status: WIDGET_STATUS.LOADING
-
-    endpoint: -> "/"
 
     template: -> ""
 
@@ -89,4 +73,36 @@ class Widget
                 options[name] = value
         options
 
-module.exports = Widget
+
+class Widget extends BaseWidget
+    constructor: (@element, @id) ->
+        super @element, @id
+
+        success = (data) => @loaded data; @render()
+        fail = (error) => 
+            try
+                @failed error
+            catch
+                @render()
+
+        promise = new Promise (resolve, reject) =>
+            console.debug "Promising"
+            request @endpoint(), (error, response, body) ->
+                if response.status < 300
+                    try
+                        resolve JSON.parse body
+                    catch error
+                        reject error
+                else reject body
+
+        promise.then success, fail
+
+    endpoint: -> "/"
+
+class StaticWidget extends BaseWidget
+    constructor: (@element, @id, data ={}) ->
+        super @element, @id, data
+
+
+
+module.exports = {StaticWidget, Widget }

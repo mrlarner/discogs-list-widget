@@ -28,19 +28,22 @@
     "watch": "^0.16.0"
   },
   "dependencies": {
-    "underscore": "^1.8.3",
+    "browser-request": "^0.3.3",
     "browserify": "^11.0.1",
-    "sassify": "^0.9.1",
-    "minifyify": "^7.0.3",
     "coffee-script": "^1.9.2",
-    "stringify": "^3.1.0",
     "coffeeify": "^1.1.0",
-    "uglify": "^0.1.5",
     "cors": "^2.7.1",
     "domready": "^1.0.8",
-    "browser-request": "^0.3.3",
     "express": "latest",
+    "minifyify": "^7.0.3",
     "promise": "^7.0.3",
-    "request-promise": "^0.4.3"
+    "request-promise": "^0.4.3",
+    "sassify": "^0.9.1",
+    "stringify": "^3.1.0",
+    "text": "^0.1.0",
+    "through": "^2.3.8",
+    "through2": "^2.0.0",
+    "uglify": "^0.1.5",
+    "underscore": "^1.8.3"
   }
 }

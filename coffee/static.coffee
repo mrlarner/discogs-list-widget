@@ -1,4 +1,4 @@
-{ ListWidget } = require './list/widget.coffee'
+{ StaticListWidget } = require './list/widget.coffee'
 
 attributeNamespace = 'data-discogs-widget'
 selector = "[#{attributeNamespace}]"
@@ -14,7 +14,7 @@ require('domready') ->
     [ type, id ] = script.getAttribute(attributeNamespace).split('-')
 
     try
-        new ListWidget(script, id) if type is widgets.list
+        new StaticListWidget(script, id, $LIST) if type is widgets.list
     catch error
         console.error error
 
