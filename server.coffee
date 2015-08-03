@@ -1,8 +1,11 @@
 express  = require 'express'
 cors = require 'cors'
+compress = require 'compression'
+
 app = express()
 
 app.use cors()
+app.use compress()
 app.use express.static './public'
 app.use '/lists', require './routes/lists'
 

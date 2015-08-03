@@ -41,8 +41,8 @@ lists.get '/:id/embed.js', (req, res, next) ->
     res.send cache[id] if id of cache
 
     resolve = (list) ->
-        b = browserify('./coffee/static.coffee')
-
+        b = browserify('./coffee/static.coffee', {debug: true})
+        b.plugin('minifyify', {map: 'bundle.map.json'})
         b.transform (file) ->
             through (buf, enc, next) ->
                 @push buf.toString('utf-8').replace(/\$LIST/g, JSON.stringify list)
