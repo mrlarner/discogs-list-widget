@@ -37,6 +37,7 @@
     "domready": "^1.0.8",
     "express": "latest",
     "minifyify": "^7.0.3",
+    "mkdirp": "^0.5.1",
     "promise": "^7.0.3",
     "request-promise": "^0.4.3",
     "sassify": "^0.9.1",

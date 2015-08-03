@@ -7,6 +7,24 @@ List = require '../models/list'
 
 lists = express.Router()
 
+cache = (path, contents) ->
+    mkdirp = require("mkdirp")
+    fs = require("fs")
+    {dirname} = require("path")
+
+    path = "./public/lists#{path}"
+    console.log "Caching file #{path}"
+    dir = dirname path
+
+    write = (p, c) -> fs.writeFile path, contents
+
+    if fs.exists dir
+        console.log "dir already exists"
+        write()
+    else
+        mkdirp dir, write
+        console.log "dir does not exist"
+
 
 log = (req, res, next) ->
     console.log "\n\nLists:", "---------------------\n", new Date
@@ -34,7 +52,6 @@ lists.get '/:id', (req, res) ->
     List.get(id).then resolve, reject
 
 
-cache = {}
 lists.get '/:id/embed.js', (req, res, next) ->
     id = req.params.id
 
@@ -57,7 +74,10 @@ lists.get '/:id/embed.js', (req, res, next) ->
         b.bundle (err, src) ->
             return next(err) if err
 
-            res.send cache[id] = src
+            cache req.path, src
+
+            res.send src
+            console.log "send sourc!"
 
     reject = (error) ->
         console.error error
