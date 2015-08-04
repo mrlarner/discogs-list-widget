@@ -1,4 +1,4 @@
-<div id="discogs-list-<%- id %>" class="list list-<%- id %> <%- status %>">
+<div class="list list-<%- id %> <%- status %>">
     <style type="text/css"><%- style %></style>
     <% if( status === 'loaded' ) { %>
         <h1 class="list-title"><%- list.name %></h1>
@@ -15,7 +15,7 @@
             <%= list.description %>
         </div>
         <ol class="list-items" <%- options.reverse ? 'reversed' : '' %>>
-            <% _.each(list.items, function(item) { %>
+            <% _.each(paginator.page(), function(item) { %>
             <li class="list-item">
                 <a href="<%- item.uri %>">
                     <h2 class="list-item-title">
@@ -27,6 +27,17 @@
                 <%= item.comment %>
             </li>
             <% }); %>
+        </ol>
+        <% if( paginator.should_render ) { %>
+        <nav class="list-item-navigation">
+            <button rel="previous">Previous</button>
+            <button rel="next">Next</button>
+            <% if( paginator.show_more ) { %>
+            <button rel="more">More</button>
+            <% } %>
+        </nav>
+        <% } %>
+        <p><a href="<%- list.uri %>">View at Discogs</a></p>
     <% } else { %>
 
         <div class="list-loading">

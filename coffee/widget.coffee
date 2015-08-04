@@ -42,13 +42,16 @@ class BaseWidget
         catch error
             @failed error.message
 
-        container = document.getElementById "discogs-list-#{@id}"
-        container.parentNode.removeChild(container) if container
-
-        if @element.insertAdjacentHTML
-            @element.insertAdjacentHTML "beforebegin", html
+        @container = document.getElementById "discogs-list-#{@id}"
+        if @container
+            @container.innerHTML = html
         else
-            @failed "no insertAdjacentHTML"
+            # make container and insert html
+            div = document.createElement 'div'
+            div.id = "discogs-list-#{@id}"
+            div.innerHTML = html
+            @element.parentNode.insertBefore div, @element
+            @container = document.getElementById "discogs-list-#{@id}"
 
     loaded: (data) ->
         console.debug "Responded with", data
@@ -102,7 +105,6 @@ class Widget extends BaseWidget
 class StaticWidget extends BaseWidget
     constructor: (@element, @id, data ={}) ->
         super @element, @id, data
-
 
 
 module.exports = {StaticWidget, Widget }

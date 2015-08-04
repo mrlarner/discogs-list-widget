@@ -1,0 +1,7 @@
+extends layout.jade
+
+block title
+    title Asyncronous Embed
+
+block body
+    script(src="/javascripts/embed.js", data-discogs-widget="list-#{id}", async)

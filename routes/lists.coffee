@@ -1,11 +1,38 @@
-express = require 'express'
-request = require 'request-promise'
 browserify = require 'browserify'
 through = require 'through2'
-
+{ Router } = require 'express'
+Promise = require 'promise'
 List = require '../models/list'
 
-lists = express.Router()
+lists = Router()
+
+
+# browserify transform for adding list data to bundle
+listify = (file) ->
+    through = require 'through2'
+    through (buf, enc, next) ->
+        @push buf.toString('utf-8').replace(/\$LIST/g, JSON.stringify list)
+        next()
+
+
+# browserify bundle promise
+bundlify = (file) ->
+    new Promise (resolve, reject) ->
+        b = browserify('./coffee/static.coffee', {debug: true})
+
+        b.plugin('minifyify', {map: 'bundle.map.json'})
+        b.transform listify
+        b.transform 'coffeeify'
+        b.transform 'sassify'
+        b.transform 'stringify'
+        b.transform 'envify'
+
+        b.on 'error', (error) -> reject error
+
+        b.bundle (err, src) ->
+            reject err if err
+            resolve src
+
 
 cache = (path, contents) ->
     mkdirp = require("mkdirp")
@@ -25,66 +52,27 @@ cache = (path, contents) ->
         mkdirp dir, write
         console.log "dir does not exist"
 
-
-log = (req, res, next) ->
-    console.log "\n\nLists:", "---------------------\n", new Date
+lists.use (req, res, next) ->
+    req.reject = (error) -> res.status(404).json error
     next()
 
-
-lists.use(log)
-
+lists.use '/:id', (req, res, next) ->
+    req.list_id = req.params.id if 'id' of req.params
+    next()
 
 lists.get '/:id', (req, res) ->
-    console.log "Get List", req.params.id
-    id = req.params.id
-    start = new Date()
+    resolve = (list) -> res.json list
 
-    resolve = (list) ->
-        console.log "Got List", list
-        console.log "It took", new Date() - start
-        res.json list
-
-    reject = (error) ->
-        console.error error
-        console.log "It took to error", new Date() - start
-        res.status(404).json error
-
-    List.get(id).then resolve, reject
+    List.get(req.list_id).then resolve, req.reject
 
 
 lists.get '/:id/embed.js', (req, res, next) ->
-    id = req.params.id
+    bundle_resolve = (bundle) ->
+        cache req.path, bundle
+        res.send bundle
 
-    #res.send cache[id] if id of cache
+    resolve = (list) -> bundlify().then bundle_resolve, req.reject
 
-    resolve = (list) ->
-        b = browserify('./coffee/static.coffee', {debug: true})
-        b.plugin('minifyify', {map: 'bundle.map.json'})
-
-        b.transform (file) ->
-            through (buf, enc, next) ->
-                @push buf.toString('utf-8').replace(/\$LIST/g, JSON.stringify list)
-                next()
-
-        b.transform 'coffeeify'
-        b.transform 'sassify'
-        b.transform 'stringify'
-
-        b.on 'error', console.error
-        b.bundle (err, src) ->
-            return next(err) if err
-
-            cache req.path, src
-
-            res.send src
-            console.log "send sourc!"
-
-    reject = (error) ->
-        console.error error
-        console.log "It took to error", new Date() - start
-        res.status(404).json error
-
-    console.log "Asking for list"
-    List.get(id).then resolve, reject
+    List.get(req.list_id).then resolve, req.reject
 
 module.exports = lists

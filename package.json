@@ -4,14 +4,15 @@
   "description": "A Widget for embedding Discogs Lists on your site",
   "main": "server.js",
   "scripts": {
-    "start:dev": "parallelshell 'supervisor server.coffee' 'npm run watch:js' 'npm run watch:css'",
-    "start": "DEBUG=express:* coffee server.coffee",
+    "start": "DEBUG=express:* NODE_ENV=production coffee server.coffee",
+    "start:dev": "DEBUG=express:* NODE_ENV=development parallelshell 'supervisor server.coffee' 'npm run watch:js'",
     "todo": "ack --ignore-dir=node_modules --ignore-dir=public --ignore-file=is:package.json --ignore-file=is:npm-debug.log TODO",
     "postinstall": "npm run build",
     "test": "testem",
     "build": "npm run build:js",
-    "build:js": "browserify -t coffeeify -t sassify -t stringify coffee/embed.coffee -d -p [minifyify --map public/embed.js.map --output public/embed.js.map ] > public/javascripts/embed.js",
-    "build:css": "sassc sass/lists.sass > public/stylesheets/lists.css",
+    "build:js": "browserify -t coffeeify -t sassify -t stringify -t envify coffee/embed.coffee -d -p [minifyify --map public/embed.js.map --output public/embed.js.map ] > public/javascripts/embed.js",
+    "build:css": "#sassc sass/lists.sass > public/stylesheets/lists.css",
+    "watch:server": "watch 'npm run start' .",
     "watch:js": "watch 'npm run build:js' coffee",
     "watch:css": "watch 'npm run build:css' sass"
   },
@@ -28,6 +29,7 @@
     "watch": "^0.16.0"
   },
   "dependencies": {
+    "backbone-events-standalone": "^0.2.7",
     "browser-request": "^0.3.3",
     "browserify": "^11.0.1",
     "coffee-script": "^1.9.2",
@@ -35,7 +37,10 @@
     "compression": "^1.5.2",
     "cors": "^2.7.1",
     "domready": "^1.0.8",
+    "envify": "^3.4.0",
     "express": "latest",
+    "jade": "^1.11.0",
+    "min.js": "remy/min.js",
     "minifyify": "^7.0.3",
     "mkdirp": "^0.5.1",
     "promise": "^7.0.3",
@@ -43,7 +48,6 @@
     "sassify": "^0.9.1",
     "stringify": "^3.1.0",
     "text": "^0.1.0",
-    "through": "^2.3.8",
     "through2": "^2.0.0",
     "uglify": "^0.1.5",
     "underscore": "^1.8.3"

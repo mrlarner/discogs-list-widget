@@ -1,8 +1,11 @@
 request = require 'request-promise'
 promise = require 'promise'
+{ lists } = require '../config'
 
-base_uri = "http://api.matthax-list-api-enpoints.spinner.10.10.10.57.xip.io"
-user_agent = "ListWidgetAPI/1.0"
+
+base_uri = lists.base_uri
+user_agent = lists.user_agent
+cache = {}
 
 extend = (object, properties) ->
   for key, val of properties
@@ -16,9 +19,6 @@ Resource = (options) ->
         headers:
             "User-Agent": user_agent
     }
-
-
-cache = {}
 
 
 class List
@@ -35,6 +35,6 @@ class List
                 resolve cache[id]
             list.catch ->
                 console.error arguments
-                reject { error: "No List" }
+                reject { error: "No List", args: arguments }
 
 module.exports = List
