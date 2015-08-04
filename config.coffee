@@ -11,4 +11,4 @@ config =
             user_agent: "ListWidgetAPI/1.0"
 
 
-module.exports = config[process.env.NODE_ENV ? "development"]
+module.exports = config[process.env.NODE_ENV ? "production"]

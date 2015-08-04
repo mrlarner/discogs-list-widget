@@ -28,13 +28,9 @@
             </li>
             <% }); %>
         </ol>
-        <% if( paginator.should_render ) { %>
+        <% if( paginator.show_more ) { %>
         <nav class="list-item-navigation">
-            <button rel="previous">Previous</button>
-            <button rel="next">Next</button>
-            <% if( paginator.show_more ) { %>
             <button rel="more">More</button>
-            <% } %>
         </nav>
         <% } %>
         <p><a href="<%- list.uri %>">View at Discogs</a></p>

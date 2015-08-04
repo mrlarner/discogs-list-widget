@@ -4,7 +4,7 @@
   "description": "A Widget for embedding Discogs Lists on your site",
   "main": "server.js",
   "scripts": {
-    "start": "DEBUG=express:* NODE_ENV=production coffee server.coffee",
+    "start": "DEBUG=express:* coffee server.coffee",
     "start:dev": "DEBUG=express:* NODE_ENV=development parallelshell 'supervisor server.coffee' 'npm run watch:js'",
     "todo": "ack --ignore-dir=node_modules --ignore-dir=public --ignore-file=is:package.json --ignore-file=is:npm-debug.log TODO",
     "postinstall": "npm run build",
