@@ -14,26 +14,27 @@
         <div class="list-description">
             <%= list.description %>
         </div>
-        <ol class="list-items" <%- options.reverse ? 'reversed' : '' %>>
+        <ol 
+            class="list-items" <%- list.reversed() %>
+            style="counter-reset: <%- list.counter() %>">
             <% _.each(paginator.page(), function(item) { %>
             <li class="list-item">
-                <a href="<%- item.uri %>" class="list-item-link">
-                    <!-- image -->
+                <a href="<%- item.uri %>" class="list-item-image-link">
                     <img class="list-item-image" src="<%- item.thumbnail %>">
-                    <!-- title -->
-                    <h2 class="list-item-title">
+                </a>
+                <!-- title -->
+                <h2 class="list-item-title">
+                    <a href="<%- item.uri %>">
                         <%- item.format_name().heading %>
                         <span class="list-item-subtitle">
                             <%- item.format_name().subheading %>
                         </span>
-                    </h2>
-                </a>
-                <div class="list-item-position">
-                    <%- item.position %>
-                </div>
+                    </a>
+                </h2>
                 <div class="list-item-comment">
                     <%= item.comment %>
                 </div>
+                <span class="list-item-clear"></span>
             </li>
             <% }); %>
         </ol>
@@ -42,7 +43,7 @@
             <button class="list-more-items" rel="more">Show More</button>
         </nav>
         <% } %>
-        <p><a href="<%- list.uri %>">View at Discogs</a></p>
+        <p><a href="<%- list.uri %>">View <%- list.name %> on Discogs</a></p>
     <% } else { %>
 
         <div class="list-loading">

@@ -1,7 +1,5 @@
 .list
   box-sizing: border-box
-  padding: 2rem
-  border: 1px solid rgba(black, 0.05)
   position: relative
   margin-bottom: 10px
 
@@ -53,7 +51,7 @@
   text-align: center
 
 .list-title
-  margin-top: 0
+  margin: 0
 
 .list-author-profile-link
   display: inline-block
@@ -79,46 +77,65 @@
   list-style: none
 
 .list-item
-  margin-bottom: 30px
+  margin-bottom: 50px
   padding-bottom: 30px
   border-bottom: 1px solid rgba(#000, 0.05)
+  counter-increment: list-counter
+  position: relative
+  &:last-child
+    margin-bottom: 0
 
-.list-item-image
-  display: block
-  float: left
-  width: 30%
-  height: auto
-  border: 1px solid rgba(#000, 0.05)
+  &:before
+    $width: 50px
+    content: counter(list-counter)
+    position: absolute
+    left: ($width * -1) - 15
+    width: $width
+    height: $width
+    border: 1px solid rgba(#000, 0.05)
+    line-height: $width
+    text-align: center
+    font-size: 120%
 
-.list-item-link
+.list-items[reversed] .list-item
+    counter-increment: list-counter -1
+
+.list-item-image-link
   display: block
   overflow: hidden
   position: relative
   text-decoration: none
   color: inherit
   margin-bottom: 15px
-  padding-bottom: 15px
+  border: 1px solid rgba(#000, 0.05)
+  width: 33%
+  float: left
+  margin-right: 15px
+  clear: left
+  text-decoration: none
+  &:hover
+    text-decoration: none
+  img
+    width: 100%
+    height: auto
+    display: block
 
 .list-item-title
   margin: 0
   display: block
-  width: 70%
-  padding-left: 15px
-  position: absolute
-  top: 50%
-  left: 30%
-  transform: translate(0, -50%)
+  color: inherit
+  font-size: 1.5em
+  float: left
+  margin-bottom: 15px
 
 .list-item-subtitle
   display: inline-block
   width: 100%
-  margin-top: 10px
   font-size: 90%
+  color: inherit
 
 .list-item-position
   width: 30%
-  float: left
-  margin-right: 15px
   text-align: center
   font-size: 120%
   margin-bottom: 15px
@@ -138,3 +155,11 @@
   &:hover
     cursor: pointer
     background: rgba(#000, 0.025)
+
+.list-item-comment
+  float: left
+  width: 60%
+
+.list-item-clear
+  clear: both
+  display: block

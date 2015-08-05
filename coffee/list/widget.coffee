@@ -3,7 +3,7 @@ _ = require 'underscore'
 template = require './template.html'
 style = require './style.sass'
 config = require '../../config.coffee'
-
+console.log "List CONFIG", config
 class ListItem
     constructor: (item) ->
         {
@@ -14,6 +14,7 @@ class ListItem
             @position
         } = item
         @thumbnail = @thumbnail ? "http://matt1.local:5000/images/default-release.png"
+        console.log @thumbnail
         @position++
 
     format_name: ->
@@ -44,6 +45,13 @@ class List
 
         @items.reverse() if @options.reverse
 
+    reversed: ->
+        return "reversed" if @options.reverse
+
+    counter: ->
+        return "list-counter #{@items.length+1}" if @options.reverse
+
+        return "list-counter 0"
 
 class Paginator
     constructor: (options) ->
@@ -73,13 +81,13 @@ class Paginator
             @per_page
 
 class ListWidget extends Widget
-    endpoint: -> "#{config.lists.base_uri}/lists/#{@id}"
+    endpoint: -> "#{config.list_widget.base_uri}/#{@id}"
     template: -> template
     style: style
     loaded: (data) ->
         super(data)
         @list = new List data, @options
-        @paginator = new Paginator(items: @list.items, per_page: 1)
+        @paginator = new Paginator(items: @list.items, per_page: @options.per_page ? 10)
         @container.addEventListener 'click', _.bind @onClick, @
     onClick: (e) ->
         { target } = e
