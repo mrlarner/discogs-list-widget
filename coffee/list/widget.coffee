@@ -73,7 +73,7 @@ class Paginator
             @per_page
 
 class ListWidget extends Widget
-    endpoint: -> "/lists/#{@id}"
+    endpoint: -> "#{config.lists.base_uri}/lists/#{@id}"
     template: -> template
     style: style
     loaded: (data) ->
