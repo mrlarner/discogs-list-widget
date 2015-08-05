@@ -74,8 +74,66 @@
 .list-description
   margin: 10px 0
 
+.list-items
+  padding: 0
+  list-style: none
+
+.list-item
+  margin-bottom: 30px
+  padding-bottom: 30px
+  border-bottom: 1px solid rgba(#000, 0.05)
+
 .list-item-image
-  max-width: 100%
+  display: block
+  float: left
+  width: 30%
   height: auto
 
+.list-item-link
+  display: block
+  overflow: hidden
+  position: relative
+  text-decoration: none
+  color: inherit
+  margin-bottom: 15px
+  padding-bottom: 15px
 
+.list-item-title
+  margin: 0
+  display: block
+  width: 70%
+  padding-left: 15px
+  position: absolute
+  top: 50%
+  left: 30%
+  transform: translate(0, -50%)
+
+.list-item-subtitle
+  display: inline-block
+  width: 100%
+  margin-top: 10px
+  font-size: 90%
+
+.list-item-position
+  width: 30%
+  float: left
+  margin-right: 15px
+  text-align: center
+  font-size: 120%
+  margin-bottom: 15px
+
+.list-more-items
+  display: block
+  width: 33%
+  margin: 30px auto 15px
+  -webkit-appearance: none
+  border: none
+  background: none
+  font-family: inherit
+  font-size: inherit
+  padding: 15px
+  background: rgba(#000, 0.05)
+  border-radius: 5px
+  &:hover
+    cursor: pointer
+    background: rgba(#000, 0.025)

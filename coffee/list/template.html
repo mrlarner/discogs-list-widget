@@ -17,20 +17,29 @@
         <ol class="list-items" <%- options.reverse ? 'reversed' : '' %>>
             <% _.each(paginator.page(), function(item) { %>
             <li class="list-item">
-                <a href="<%- item.uri %>">
-                    <h2 class="list-item-title">
-                        <%- item.name %>
-                    </h2>
+                <a href="<%- item.uri %>" class="list-item-link">
                     <!-- image -->
                     <img class="list-item-image" src="<%- item.thumbnail %>">
+                    <!-- title -->
+                    <h2 class="list-item-title">
+                        <%- item.format_name().heading %>
+                        <span class="list-item-subtitle">
+                            <%- item.format_name().subheading %>
+                        </span>
+                    </h2>
                 </a>
-                <%= item.comment %>
+                <div class="list-item-position">
+                    <%- item.position %>
+                </div>
+                <div class="list-item-comment">
+                    <%= item.comment %>
+                </div>
             </li>
             <% }); %>
         </ol>
         <% if( paginator.show_more ) { %>
         <nav class="list-item-navigation">
-            <button rel="more">More</button>
+            <button class="list-more-items" rel="more">Show More</button>
         </nav>
         <% } %>
         <p><a href="<%- list.uri %>">View at Discogs</a></p>

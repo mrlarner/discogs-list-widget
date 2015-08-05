@@ -11,8 +11,14 @@ class ListItem
             @comment
             @thumbnail
             @uri
+            @position
         } = item
 
+        @position++
+
+    format_name: ->
+        [ heading, subheading ] = @name.split(' - ')
+        { heading, subheading }
 
 class ListAuthor
     constructor: (author) ->
