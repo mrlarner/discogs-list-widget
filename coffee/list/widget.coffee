@@ -13,7 +13,7 @@ class ListItem
             @uri
             @position
         } = item
-
+        @thumbnail = @thumbnail ? "http://matt1.local:5000/images/default-release.png"
         @position++
 
     format_name: ->
